@@ -3,12 +3,16 @@ public class Matrix {
     public static final int[] DEFAULT_VALUES_ARRAY = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     public static final String MATRICES_SAME_DIMENSIONS = "Make sure both matrices are the same dimensions.";
     public static final Matrix ZERO_MATRIX = new Matrix();
-    public static final Matrix TEST_MATRIX = new Matrix(3, 3, DEFAULT_VALUES_ARRAY);
+    public static final Matrix TEST_MATRIX_ONE = new Matrix(3, 3, DEFAULT_VALUES_ARRAY);
+    public static final int[] testValuesTwo = {1, 2, 3, 4};
+    public static final Matrix TEST_MATRIX_TWO = new Matrix(2, 2, testValuesTwo);
 
     private int length;
     private int width;
     private int[] values;
     private int[][] matrix;
+
+    //TODO: fix even spacing for printing out array
 
     public Matrix() {
         this.length = 3;
@@ -92,7 +96,7 @@ public class Matrix {
 
     public Matrix plus(Matrix addend) {
         try {
-            if ((this.length != addend.length) && (this.width != addend.width)) {
+            if ((this.length != addend.length) && (this.width != addend.length)) {
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -110,13 +114,20 @@ public class Matrix {
 
     public Matrix minus(Matrix subtrahend) {
         try {
-            if ((this.length != subtrahend.length) && (this.width != subtrahend.width)) {
+            if ((this.length != subtrahend.length) && (this.width != subtrahend.length)) {
                 throw new Exception();
             }
         } catch (Exception e) {
             System.out.println(MATRICES_SAME_DIMENSIONS);
         }
-        return new Matrix();
+        Matrix diff = new Matrix(this.length, this.width);
+        for (int i = 0; i < this.getLength(); i++) {
+            for (int j = 0; j < this.getWidth(); j++) {
+                int num = this.getValue(i, j) - subtrahend.getValue(i, j);
+                diff.setValue(i, j, num);
+            }
+        }
+        return diff;
     }
 
     public Matrix times(Matrix factor) {
@@ -140,7 +151,7 @@ public class Matrix {
         //     Matrix m = new Matrix(l, w, v);
         // }
 
-        Matrix test = TEST_MATRIX.plus(TEST_MATRIX);
+        Matrix test = TEST_MATRIX_ONE.plus(TEST_MATRIX_TWO);
         test.printString();
     }
 }
