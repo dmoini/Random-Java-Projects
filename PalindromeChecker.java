@@ -1,13 +1,12 @@
 public class PalindromeChecker {
 
     private static boolean isPalindrome(String s) {
-        boolean result = true;
         for (int i = 0; i < s.length() / 2; i++) {
             if (s.charAt(i) != s.charAt(s.length() - i - 1)) {
-                result = false;
+                return false;
             }
         }
-        return result;
+        return true;
     }
 
     public static void main(String[] args) {
